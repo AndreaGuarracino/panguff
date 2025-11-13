@@ -233,7 +233,7 @@ pub fn get_ref_positions(
         for &node in nodes {
             positions
                 .entry(node)
-                .or_insert_with(Vec::new)
+                .or_default()
                 .push((pos, path_name.clone()));
             pos += graph.segment_len(node);
         }

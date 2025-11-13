@@ -74,8 +74,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             let ref_paths = if !reference.is_empty() {
                 reference
             } else if let Some(ref list_file) = reference_list {
-                let paths = nearest::load_ref_paths(list_file)?;
-                paths
+                
+                nearest::load_ref_paths(list_file)?
             } else {
                 return Err("Either --reference or --reference-list must be specified".into());
             };
