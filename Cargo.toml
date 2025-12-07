@@ -4,6 +4,14 @@ version = "0.1.0"
 authors = ["Andrea Guarracino <aguarra1@uthsc.edu>"]
 edition = "2024"
 
+[lib]
+name = "panguff"
+path = "src/lib.rs"
+
+[[bin]]
+name = "panguff"
+path = "src/main.rs"
+
 [dependencies]
 clap = { version = "4.5", features = ["derive"] }
 flate2 = "1.1"
@@ -11,3 +19,4 @@ log = "0.4"
 env_logger = "0.11"
 rayon = "1.11"
 rustc-hash = "2.1"
+indicatif = "0.17"

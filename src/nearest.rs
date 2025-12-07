@@ -114,7 +114,7 @@ impl Graph {
 }
 
 /// Create reader handling gzip compression
-fn create_reader(path: &Path) -> std::io::Result<Box<dyn BufRead>> {
+pub fn create_reader(path: &Path) -> std::io::Result<Box<dyn BufRead>> {
     let file = File::open(path)?;
     if path
         .extension()
