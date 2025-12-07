@@ -1,4 +1,5 @@
 use flate2::read::GzDecoder;
+use zstd::stream::read::Decoder as ZstdDecoder;
 use log::{error, info};
 use rayon::prelude::*;
 use rustc_hash::{FxHashMap, FxHashSet};
@@ -113,7 +114,7 @@ impl Graph {
     }
 }
 
-/// Create reader handling gzip compression
+/// Create reader handling gzip and zstd compression
 pub fn create_reader(path: &Path) -> std::io::Result<Box<dyn BufRead>> {
     let file = File::open(path)?;
     if path
@@ -121,6 +122,8 @@ pub fn create_reader(path: &Path) -> std::io::Result<Box<dyn BufRead>> {
         .is_some_and(|ext| ext == "gz" || ext == "bgz")
     {
         Ok(Box::new(BufReader::new(GzDecoder::new(file))))
+    } else if path.extension().is_some_and(|ext| ext == "zst") {
+        Ok(Box::new(BufReader::new(ZstdDecoder::new(file)?)))
     } else {
         Ok(Box::new(BufReader::new(file)))
     }
